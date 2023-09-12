@@ -8,8 +8,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"
-          href="/css/estilos.css">
-          <script src="./js/app.js"></script>
+          href="css/estilos.css">
+    <script src="js/app.js"></script>
     <title>Document</title>
 </head>
 
@@ -41,8 +41,8 @@
             <div class="agregar_contenedor">
                 <select class="agregar_tipo"
                         id="tipo">
-                    <option value="volvo">+ Ingreso</option>
-                    <option value="saab">- Egreso</option>
+                    <option value="Ingreso" selected>+</option>
+                    <option value="Egreso">-</option>
                 </select>
                 <input type="text"
                        class="agregar_descripcion"
@@ -50,13 +50,17 @@
                        placeholder="Agregar Descripción">
                 <input type="number"
                        class="agregar_valor"
-                       placeholder="Valor">
-                <button class="agregar_btn"><ion-icon name="checkmark-circle-outline"></ion-icon></button>
+                       placeholder="valor"
+                       id="valor"
+                       step="any">
+                <button class="agregar_btn"
+                        onclick="agregarDato()"><ion-icon name="checkmark-circle-outline"></ion-icon></button>
             </div>
         </div>
     </form>
     <div class="contenedor limpiarEstilos">
-        <div class="ingreso">
+        <div class="ingreso"
+             id="ingreso_padre">
             <h2 class="ingreso_titulo">Ingresos</h2>
             <div id="lista-ingresos">
                 <div class="elemento limpiarEstilos">
@@ -64,7 +68,8 @@
                     <div class="derecha limpiarEstilos">
                         <div class="elemento_valor">+2,200.00</div>
                         <div class="elemento_eliminar">
-                            <button class="elemento_eliminar--btn">
+                            <button class="elemento_eliminar--btn"
+                                    onclick="eliminarIngreso()">
                                 <ion-icon name="close-circle-outline"></ion-icon>
                             </button>
                         </div>
@@ -75,7 +80,8 @@
                     <div class="derecha limpiarEstilos">
                         <div class="elemento_valor">+1,500.00</div>
                         <div class="elemento_eliminar">
-                            <button class="elemento_eliminar--btn">
+                            <button class="elemento_eliminar--btn"
+                                    onclick="eliminarIngreso()">
                                 <ion-icon name="close-circle-outline"></ion-icon>
                             </button>
                         </div>
@@ -92,7 +98,8 @@
                         <div class="elemento_valor">-900.00</div>
                         <div class="elemento_porcentaje">21%</div>
                         <div class="elemento_eliminar">
-                            <button class="elemento_eliminar--btn">
+                            <button class="elemento_eliminar--btn"
+                                    onclick="eliminarEgreso()">
                                 <ion-icon name="close-circle-outline"></ion-icon>
                             </button>
                         </div>
@@ -104,7 +111,8 @@
                         <div class="elemento_valor">-400.00</div>
                         <div class="elemento_porcentaje">9%</div>
                         <div class="elemento_eliminar">
-                            <button class="elemento_eliminar--btn">
+                            <button class="elemento_eliminar--btn"
+                                    onclick="eliminarEgreso()">
                                 <ion-icon name="close-circle-outline"></ion-icon>
                             </button>
                         </div>
