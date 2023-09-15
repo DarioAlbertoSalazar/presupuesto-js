@@ -3,14 +3,14 @@ let egresoTotal = 0;
 let presupuesto = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
-  // presupuesto = Number(prompt("Ingrese el nuevo presupuesto"));
+  presupuesto = Number(prompt("Ingrese el nuevo presupuesto"));
   if (presupuesto !== null && !isNaN(parseInt(presupuesto))) {
     realizarCalculos(ingresoTotal, egresoTotal);
   } else {
     alert("Ingrese un valor de presupuesto válido.");
   }
-  document.getElementById('ingresos').innerHTML = `<p>$${ingresoTotal}</p>`
-  document.getElementById('egresos').innerHTML = `<p>$${egresoTotal}</p>`
+  document.getElementById("ingresos").innerHTML = `<p>$${ingresoTotal}</p>`;
+  document.getElementById("egresos").innerHTML = `<p>$${egresoTotal}</p>`;
 });
 
 const agregarDato = () => {
@@ -28,13 +28,13 @@ const agregarDato = () => {
                             <button class="elemento_eliminar--btn" onclick="eliminarIngreso()">
                                 <ion-icon name="close-circle-outline"></ion-icon>
                             </button>
+                        </div>
                         </div>`;
     newboxent.setAttribute("class", "elemento limpiarEstilos");
     let nuevocontenedor = document.getElementById("lista-ingresos");
     nuevocontenedor.insertAdjacentElement("beforeend", newboxent);
-    
+
     ingresoTotal = ingresoTotal + valor;
-    presupuesto += valor;
     document.getElementById("ingresos").innerHTML = `<p>+${ingresoTotal}</p>`;
   } else if (tipo === "Egreso") {
     let newboxent = document.createElement("div");
@@ -54,7 +54,6 @@ const agregarDato = () => {
     let nuevocontenedor = document.getElementById("lista-egresos");
     nuevocontenedor.insertAdjacentElement("beforeend", newboxent);
     egresoTotal = egresoTotal + valor;
-    presupuesto -= valor;
     document.getElementById("egresos").innerHTML = `<p>-${egresoTotal}</p>`;
   }
   realizarCalculos(ingresoTotal, egresoTotal);
@@ -62,12 +61,10 @@ const agregarDato = () => {
 
 function realizarCalculos(ingresoTotal, egresoTotal) {
   const saldo = presupuesto - egresoTotal + ingresoTotal;
-  // console.log("El valor del presupuesto es:", presupuesto);
-  // console.log("El saldo actual es:", saldo);
-  // console.log("Total de ingresos:", ingresoTotal);
-  // console.log("Total de egresos:", egresoTotal);
   let valorPresupuestoElement = document.getElementById("presupuestoNuevo");
-  valorPresupuestoElement.innerHTML = `$${presupuesto}`;
+  valorPresupuestoElement.innerHTML = `$${saldo}`;
+  document.getElementById('ingresos').innerHTML =`<p>+${ingresoTotal}</p>`;
+  document.getElementById("egresos").innerHTML = `<p>-${egresoTotal}</p>`;
 }
 
 let eliminarIngreso = () => {
@@ -76,12 +73,8 @@ let eliminarIngreso = () => {
   let quitarIngreso = parseInt(
     document.getElementById("valor_ingreso").innerHTML
   );
-  console.log(quitarIngreso);
-  let presupuestoTotal = document.getElementById("presupuestoNuevo").innerHTML;
-  let presupuestoO = parseInt(presupuestoTotal.replace("$", ""));
-  presupuestoO = presupuestoO - quitarIngreso;
-  let valorPresupuestoElement = document.getElementById("presupuestoNuevo");
-  valorPresupuestoElement.innerHTML = `$${presupuestoO}`;
+  ingresoTotal -= quitarIngreso;
+  realizarCalculos(ingresoTotal, egresoTotal);
   elemento.removeChild(ingresodelete);
 };
 
@@ -90,14 +83,7 @@ let eliminarEgreso = () => {
   let egresodelete = elemento.querySelector(".elemento");
   let quitarEgreso = document.getElementById("valor_egreso").innerHTML;
   let quitarEgreso0 = parseInt(quitarEgreso.replace("-", ""));
-  console.log(quitarEgreso0);
-  let presupuestoTotal = document.getElementById("presupuestoNuevo").innerHTML;
-  console.log(presupuestoTotal);
-  let presupuestoO = parseInt(presupuestoTotal.replace("$", ""));
-  console.log(presupuestoO);
-  presupuestoO = presupuestoO + quitarEgreso0;
-  console.log(presupuestoO);
-  let valorPresupuestoElement = document.getElementById("presupuestoNuevo");
-  valorPresupuestoElement.innerHTML = `$${presupuestoO}`;
+  egresoTotal -= quitarEgreso0;
+  realizarCalculos(ingresoTotal, egresoTotal);
   elemento.removeChild(egresodelete);
 };
